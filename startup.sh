@@ -8,6 +8,14 @@ sudo git pull
 sudo npm install
 sudo cp -r * /var/www/html
 sudo rm -rf /var/www/html/.git
-sudo npm start
+sudo chown -R www-data:www-data /var/www/html/*
+cd /var/www/html
+
+# Start the Node.js application using pm2
+sudo pm2 start /var/www/html/index.js --name "node-hello"
+
+# Ensure pm2 restarts the app on reboot
+sudo pm2 startup systemd
+sudo pm2 save
 
 
