@@ -10,22 +10,7 @@ sudo ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 sudo git config --global --add safe.directory /home/adam_boonchaya/node-hello
 sudo git pull
 sudo npm install
-sudo useradd -m -d /home/nodeapp nodeapp
-sudo chown -R nodeapp:nodeapp /opt/app
-sudo cat >/etc/supervisor/conf.d/node-hello.conf << EOF
-[program:nodeapp]
-directory=/home/adam_boonchaya/node-hello
-command=npm start
-autostart=true
-autorestart=true
-user=nodeapp
-environment=HOME="/home/nodeapp",USER="nodeapp",NODE_ENV="production"
-stdout_logfile=syslog
-stderr_logfile=syslog
-EOF
-
-supervisorctl reread
-supervisorctl update
+nohup node server.js > server.log 2>&1 &
 
 
 
